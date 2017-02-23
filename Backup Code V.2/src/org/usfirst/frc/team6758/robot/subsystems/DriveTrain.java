@@ -22,6 +22,13 @@ public class DriveTrain extends Subsystem {
 	//Make Joystick - Might be able to put somewhere else
 	Joystick stick = new Joystick(0);
 	
+	//Supposed to be 0-6V in one seconds. Not sure if it will work. 
+	//Also not sure if it should go here. Keep commited out
+	/*leftfront.setVoltageRampRate(6); 
+	rightfront.setVoltageRampRate(6);
+	leftback.setVoltageRampRate(6);
+	rightback.setVoltageRampRate(6);*/
+	
 	//teleoperated driving
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
