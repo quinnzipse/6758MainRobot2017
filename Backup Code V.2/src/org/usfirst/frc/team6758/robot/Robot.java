@@ -26,8 +26,6 @@ public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static final DriveTrain driveTrain = new DriveTrain();
 	
-	public static OI oi; //Not sure about this one either - I do not think we need this
-	
 	//These are placeholders
 	RobotDrive robotDrive;
 	CameraServer camera;
@@ -44,8 +42,6 @@ public class Robot extends IterativeRobot {
     	
     	//Turns off stupid error message
 		robotDrive.setSafetyEnabled(false);
-    	
-		oi = new OI(); //Not sure about this one
 		
 		//List of autonomous commands to pick from
 		chooser.addDefault("Do Nothing", new Wait(15));
@@ -57,8 +53,6 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void disabledInit() {
-	RobotMap.WinchLeft.set(0);
-	RobotMap.WinchRight.set(0);
 	}
 
 	@Override
@@ -69,26 +63,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
-		
-		//Encoder Set Up
-		
-		//Defines what they are
-		RobotMap.rightback.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		RobotMap.leftback.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		RobotMap.rightfront.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		RobotMap.leftfront.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-		
-		//Defines how they work
-		RobotMap.rightback.configEncoderCodesPerRev(360);
-		RobotMap.leftback.configEncoderCodesPerRev(360);
-		RobotMap.rightfront.configEncoderCodesPerRev(360);
-		RobotMap.leftfront.configEncoderCodesPerRev(360);
-		
-		//Defines which mode the TalonSRX has to be in
-		RobotMap.rightback.changeControlMode(TalonControlMode.Speed);
-		RobotMap.leftback.changeControlMode(TalonControlMode.Speed);
-		RobotMap.rightfront.changeControlMode(TalonControlMode.Speed);
-		RobotMap.leftfront.changeControlMode(TalonControlMode.Speed);
 
 		//If there is an autonomous command this will start it
 		if (autonomousCommand != null)
@@ -105,21 +79,9 @@ public class Robot extends IterativeRobot {
 		
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		
-		//Encoders disable to drive in teleop period.
-		RobotMap.rightback.changeControlMode(TalonControlMode.PercentVbus);
-		RobotMap.leftback.changeControlMode(TalonControlMode.PercentVbus);
-		RobotMap.rightfront.changeControlMode(TalonControlMode.PercentVbus);
-		RobotMap.leftfront.changeControlMode(TalonControlMode.PercentVbus);
-		
 		}
 	
 	public Robot() {
-		
-		//Turn on cameras
-		camera = CameraServer.getInstance();
-    	camera.startAutomaticCapture(0);
-    	camera.startAutomaticCapture(1);
 		
     	//turn on robot drive
 		robotDrive = new RobotDrive( RobotMap.leftfront, RobotMap.leftback, RobotMap.rightfront , RobotMap.rightback );
