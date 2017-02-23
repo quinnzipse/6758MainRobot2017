@@ -48,7 +48,7 @@ public class DriveTrain extends Subsystem {
 			//Drives the robot
 			robotDrive.mecanumDrive_Cartesian(speedcontrol(stick.getX()), speedcontrol(stick.getY()), speedcontrol(stick.getZ()),0);
 			
-			//Inverts motors. Don't know why we need it but we need it.
+			//Inverts motors. Don't know why we need it but we need it for Mecanum.
 			robotDrive.setInvertedMotor(MotorType.kFrontLeft , true);		
 			robotDrive.setInvertedMotor(MotorType.kRearLeft, true); 
 			
@@ -63,6 +63,9 @@ public class DriveTrain extends Subsystem {
 		return axisposition*((stick.getThrottle()-1)/2);
 	}
 
+	//A FEW OF THESE MOTORS NEED TO BE INVERTED SO THE ROBOT ACTUALLY DOES THE CORRECT COMMAND
+	//SEE THE INVERTED MOTORS ABOVE
+	
     //autonomous driving
     public void driveForward(double outSpeed){
     	//sets all the motors to the desired speed
